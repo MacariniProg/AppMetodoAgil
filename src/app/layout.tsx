@@ -4,6 +4,7 @@ import "../styles/globals.css";
 import moment from "moment";
 import "moment/locale/pt-br";
 import { HomeIcon, LogOutIcon } from "lucide-react";
+import Providers from "./providers";
 moment.locale("pt-br");
 
 const inter = Inter({ subsets: ["latin"] });
@@ -21,22 +22,24 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="flex h-[100vh] w-[100vw] ">
-          <div className="w-14 h-full overflow-hidden flex flex-col bg-primary text-neutral-50 items-center">
-            <div className="size-14 flex items-center justify-center border-b">
-              <p>Logo</p>
-            </div>
+        <Providers>
+          <div className="flex h-[100vh] w-[100vw] ">
+            <div className="w-14 h-full overflow-hidden flex flex-col  text-primary items-center border-r-2">
+              <div className="size-14 flex items-center justify-center border-b">
+                <p>Logo</p>
+              </div>
 
-            <div className="w-full py-3 flex justify-center cursor-pointer hover:bg-neutral-50 hover:text-primary transition-all">
-              <HomeIcon />
-            </div>
+              <div className="w-full py-3 flex justify-center cursor-pointer hover:bg-primary hover:text-neutral-50 transition-all">
+                <HomeIcon />
+              </div>
 
-            <div className="w-full py-3 flex justify-center mt-auto cursor-pointer hover:bg-neutral-50 hover:text-primary transition-all">
-              <LogOutIcon />
+              <div className="w-full py-3 flex justify-center mt-auto cursor-pointer hover:bg-primary hover:text-neutral-50 transition-all">
+                <LogOutIcon />
+              </div>
             </div>
+            <div className="flex-1 flex flex-col px-6 py-4">{children}</div>
           </div>
-          <div className="flex-1 flex flex-col">{children}</div>
-        </div>
+        </Providers>
       </body>
     </html>
   );
