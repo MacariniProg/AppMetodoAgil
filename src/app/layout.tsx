@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
+import "../styles/globals.css";
+import moment from "moment";
+import "moment/locale/pt-br";
+moment.locale("pt-br");
 
 const inter = Inter({ subsets: ["latin"] });
 
