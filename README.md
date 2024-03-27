@@ -10,3 +10,4 @@
 - Zod - declaração de schemas
 - TanStack Query - Atualização em tempo real
 - Prisma - BD
+- Icones - lucide-react
