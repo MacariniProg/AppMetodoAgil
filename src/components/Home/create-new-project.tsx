@@ -47,18 +47,20 @@ export function CreateNewProject() {
   const initialDate = watch("initialDate");
   const endDate = watch("endDate");
 
-  const onSubmit = (data: NewProjectSchema) => {
-    console.log(data);
-
-    // fetch('/api/projetos/create', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(projeto),
-    // })
-    // .then(response => response.json())
-    // .then(data => setProjetos(prevProjetos => [...prevProjetos, data]));
+  const onSubmit = async (data: NewProjectSchema) => {
+    try {
+      await fetch("/api/projects", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: data.name,
+          description: data.description,
+        }),
+      });
+      // await Router.push('/drafts');
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

@@ -1,5 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
+// Criar -> npx prisma db push
 // Gerar as tabelas -> npx prisma generate
 // Visualizar banco de dados -> npx prisma studio
 
@@ -24,9 +25,9 @@ datasource db {
 
 // Modelo para representar um projeto
 model Project {
-  id          Int      @id @default(autoincrement())
-  initialDate DateTime
-  endDate     DateTime
+  id          Int    @id @default(autoincrement())
+  // initialDate DateTime
+  // endDate     DateTime
   name        String
   description String
   // time         Pessoa[]  @relation("Time")

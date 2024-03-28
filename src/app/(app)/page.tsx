@@ -1,6 +1,7 @@
 import { atom } from "jotai";
 import { Header } from "../../components/Home/header";
 import { SearchArea } from "../../components/Home/search-area";
+import { ProjectList } from "@/src/components/Home/projects-list";
 
 export const SearchAtom = atom({
   search: "",
@@ -12,6 +13,7 @@ export default function Home() {
     <div className="flex-1 flex gap-4 flex-col">
       <Header />
       <SearchArea />
+      <ProjectList />
     </div>
   );
 }
