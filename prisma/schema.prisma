@@ -25,9 +25,9 @@ datasource db {
 
 // Modelo para representar um projeto
 model Project {
-  id          Int    @id @default(autoincrement())
-  // initialDate DateTime
-  // endDate     DateTime
+  id          Int       @id @default(autoincrement())
+  initialDate DateTime
+  endDate     DateTime?
   name        String
   description String
   // time         Pessoa[]  @relation("Time")

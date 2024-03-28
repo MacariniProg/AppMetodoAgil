@@ -4,11 +4,10 @@ import { SheetContent, SheetHeader, SheetTitle } from "../ui/sheet";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, Loader2 } from "lucide-react";
 import { format, isFuture, isToday } from "date-fns";
 import { pt } from "date-fns/locale";
 import { Calendar } from "../ui/calendar";
@@ -40,7 +39,7 @@ export function CreateNewProject() {
     handleSubmit,
     watch,
     setValue,
-    formState: { errors },
+    formState: { errors, isLoading },
   } = useForm<NewProjectSchema>({
     resolver: zodResolver(newProjectSchema),
   });
@@ -52,12 +51,8 @@ export function CreateNewProject() {
       await fetch("/api/projects", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: data.name,
-          description: data.description,
-        }),
+        body: JSON.stringify(data),
       });
-      // await Router.push('/drafts');
     } catch (error) {
       console.error(error);
     }
@@ -147,7 +142,13 @@ export function CreateNewProject() {
           </div>
         </div>
 
-        <Button>Criar projeto</Button>
+        <Button disabled={isLoading}>
+          {isLoading ? (
+            <Loader2 className="mr-2 h-3 w-3 animate-spin" />
+          ) : (
+            "Criar projeto"
+          )}
+        </Button>
       </form>
     </SheetContent>
   );

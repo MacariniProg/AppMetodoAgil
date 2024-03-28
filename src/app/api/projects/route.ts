@@ -8,7 +8,7 @@ export const GET = async () => {
   
   export const POST = async (request: Request) => {
     const data = await request.json()
-    const project = await prisma.project.create({ data })
+    const project = await prisma.project.create({ data  })
     return NextResponse.json({ data: project })
   }
   
