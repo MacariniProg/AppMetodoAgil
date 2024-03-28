@@ -1,11 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "../styles/globals.css";
-import moment from "moment";
-import "moment/locale/pt-br";
+import "./globals.css";
 import { HomeIcon, LogOutIcon } from "lucide-react";
 import Providers from "./providers";
-moment.locale("pt-br");
 
 const inter = Inter({ subsets: ["latin"] });
 

@@ -4,7 +4,7 @@ import { SearchIcon } from "lucide-react";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { useAtom } from "jotai";
-import { SearchAtom } from "@/src/app/page";
+import { SearchAtom } from "@/src/app/(app)/page";
 
 export function SearchArea() {
   const [search, setSearch] = useAtom(SearchAtom);

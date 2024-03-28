@@ -1,5 +1,7 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
+// Gerar as tabelas -> npx prisma generate
+// Visualizar banco de dados -> npx prisma studio
 
 generator client {
   provider = "prisma-client-js"
@@ -10,60 +12,58 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 // Arquivo: schema.prisma
 
 // Modelo para representar uma pessoa do time
-model Pessoa {
-  id         Int      @id @default(autoincrement())
-  nome       String
-  cargo      String   // Exemplo: front, back, fullstack, QA, Design
-  projetos   Projeto[] @relation("Time")
-}
+// model Pessoa {
+//   id         Int      @id @default(autoincrement())
+//   nome       String
+//   cargo      String   // Exemplo: front, back, fullstack, QA, Design
+//   projetos   Projeto[] @relation("Time")
+// }
 
 // Modelo para representar um projeto
-model Projeto {
-  id           Int       @id @default(autoincrement())
-  dataInicio   DateTime
-  dataFim      DateTime
-  nome         String
-  descricao    String
-  time         Pessoa[]  @relation("Time")
-  sprints      Sprint[]
+model Project {
+  id          Int      @id @default(autoincrement())
+  initialDate DateTime
+  endDate     DateTime
+  name        String
+  description String
+  // time         Pessoa[]  @relation("Time")
+  // sprints      Sprint[]
 }
 
-// Modelo para representar uma sprint do projeto
-model Sprint {
-  id            Int       @id @default(autoincrement())
-  projeto       Projeto   @relation(fields: [projetoId], references: [id])
-  projetoId     Int
-  dataInicio    DateTime
-  dataFim       DateTime
-  tarefas       Tarefa[]
-}
+// // Modelo para representar uma sprint do projeto
+// model Sprint {
+//   id            Int       @id @default(autoincrement())
+//   projeto       Projeto   @relation(fields: [projetoId], references: [id])
+//   projetoId     Int
+//   dataInicio    DateTime
+//   dataFim       DateTime
+//   tarefas       Tarefa[]
+// }
 
-// Modelo para representar uma tarefa
-model Tarefa {
-  id              Int       @id @default(autoincrement())
-  nome            String
-  historia        Historia  @relation(fields: [historiaId], references: [id])
-  historiaId      Int
-  responsaveis    Pessoa[]  @relation("ResponsavelTarefa")
-  status          String    // Todo, Doing, Done, QA
-}
+// // Modelo para representar uma tarefa
+// model Tarefa {
+//   id              Int       @id @default(autoincrement())
+//   nome            String
+//   historia        Historia  @relation(fields: [historiaId], references: [id])
+//   historiaId      Int
+//   responsaveis    Pessoa[]  @relation("ResponsavelTarefa")
+//   status          String    // Todo, Doing, Done, QA
+// }
 
-// Modelo para representar uma história do projeto
-model Historia {
-  id          Int       @id @default(autoincrement())
-  descricao   String
-}
+// // Modelo para representar uma história do projeto
+// model Historia {
+//   id          Int       @id @default(autoincrement())
+//   descricao   String
+// }
 
-// Relacionamento entre Pessoa e Projeto
-model Time {
-  pessoa      Pessoa @relation(fields: [pessoaId], references: [id])
-  pessoaId    Int
-  projeto     Projeto @relation(fields: [projetoId], references: [id])
-  projetoId   Int
-  cargos    String[]   // Lista de cargos da pessoa no projeto
-}
-
+// // Relacionamento entre Pessoa e Projeto
+// model Time {
+//   pessoa      Pessoa @relation(fields: [pessoaId], references: [id])
+//   pessoaId    Int
+//   projeto     Projeto @relation(fields: [projetoId], references: [id])
+//   projetoId   Int
+//   cargos    String[]   // Lista de cargos da pessoa no projeto
+// }
