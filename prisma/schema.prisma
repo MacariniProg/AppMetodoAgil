@@ -13,15 +13,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// Arquivo: schema.prisma
-
 // Modelo para representar uma pessoa do time
-// model Pessoa {
-//   id         Int      @id @default(autoincrement())
-//   nome       String
-//   cargo      String   // Exemplo: front, back, fullstack, QA, Design
-//   projetos   Projeto[] @relation("Time")
-// }
+model User {
+  id       Int    @id @default(autoincrement())
+  name     String
+  office   String // Exemplo: front, back, fullstack, QA, Design
+  projects Team[]
+}
 
 // Modelo para representar um projeto
 model Project {
@@ -30,8 +28,19 @@ model Project {
   endDate     DateTime?
   name        String
   description String
-  // time         Pessoa[]  @relation("Time")
+  users       Team[]
   // sprints      Sprint[]
+}
+
+// // Relacionamento entre Pessoa e Projeto
+model Team {
+  user      User    @relation(fields: [userId], references: [id])
+  userId    Int
+  project   Project @relation(fields: [projectId], references: [id])
+  projectId Int
+  role      String // PO, SM, DEV, QA
+
+  @@id([userId, projectId])
 }
 
 // // Modelo para representar uma sprint do projeto
@@ -58,13 +67,4 @@ model Project {
 // model Historia {
 //   id          Int       @id @default(autoincrement())
 //   descricao   String
-// }
-
-// // Relacionamento entre Pessoa e Projeto
-// model Time {
-//   pessoa      Pessoa @relation(fields: [pessoaId], references: [id])
-//   pessoaId    Int
-//   projeto     Projeto @relation(fields: [projetoId], references: [id])
-//   projetoId   Int
-//   cargos    String[]   // Lista de cargos da pessoa no projeto
 // }

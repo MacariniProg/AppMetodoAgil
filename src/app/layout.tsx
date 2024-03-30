@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { HomeIcon, LogOutIcon } from "lucide-react";
 import Providers from "./providers";
+import { Sidebar } from "../components/layout/sidebar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,19 +21,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Providers>
           <div className="flex h-[100vh] w-[100vw] ">
-            <div className="w-14 h-full overflow-hidden flex flex-col  text-primary items-center border-r-2">
-              <div className="size-14 flex items-center justify-center border-b">
-                <p>Logo</p>
-              </div>
-
-              <div className="w-full py-3 flex justify-center cursor-pointer hover:bg-primary hover:text-neutral-50 transition-all">
-                <HomeIcon />
-              </div>
-
-              <div className="w-full py-3 flex justify-center mt-auto cursor-pointer hover:bg-primary hover:text-neutral-50 transition-all">
-                <LogOutIcon />
-              </div>
-            </div>
+            <Sidebar />
             <div className="flex-1 flex flex-col px-6 py-4">{children}</div>
           </div>
         </Providers>
