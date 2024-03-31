@@ -1,7 +1,8 @@
+import { UserProps } from "@/src/types/user.types";
 import Image from "next/image";
 
-export function UserCard() {
-  const UserOffice = () => {
+export function UserCard({ user }: { user: UserProps }) {
+  const UserOffice = (office: string) => {
     const obj = {
       front: {
         color: "bg-blue-500",
@@ -24,6 +25,9 @@ export function UserCard() {
         text: "Design",
       },
     };
+
+    if (!obj[office as keyof typeof obj]) return obj.front;
+    return obj[office as keyof typeof obj];
   };
 
   return (
@@ -37,10 +41,18 @@ export function UserCard() {
         />
       </div>
 
-      <div className="overflow-hidden">
-        <h3 className="font-semibold">John Doe</h3>
-        <div className="flex justify-between items-start">
-          <p className="text-xs opacity-90">32 Projetos</p>
+      <div className="overflow-hidden flex-1">
+        <h3 className="font-semibold">{user.name}</h3>
+        <div className="text-xs flex justify-between items-start w-full">
+          <p className="opacity-90">0 Projetos</p>
+
+          <div
+            className={`${
+              UserOffice(user.office).color
+            } rounded-full px-2 text-neutral-50`}
+          >
+            {UserOffice(user.office).text}
+          </div>
         </div>
       </div>
     </div>

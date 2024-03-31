@@ -1,6 +1,12 @@
 import { UserCard } from "@/src/components/Users/user-card";
+import { UserProps } from "@/src/types/user.types";
 
-export default function Users() {
+export default async function Users() {
+  const res = await fetch("http://localhost:3000/api/user", {
+    method: "GET",
+  });
+  const data: { data: UserProps[] } = await res.json();
+
   return (
     <>
       <h2 className="text-3xl font-bold tracking-tight">Usuários</h2>
@@ -10,7 +16,9 @@ export default function Users() {
           gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
         }}
       >
-        <UserCard />
+        {data.data.map((user) => (
+          <UserCard key={user.id} user={user} />
+        ))}
       </div>
     </>
   );

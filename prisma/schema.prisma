@@ -15,10 +15,12 @@ datasource db {
 
 // Modelo para representar uma pessoa do time
 model User {
-  id       Int    @id @default(autoincrement())
-  name     String
-  office   String // Exemplo: front, back, fullstack, QA, Design
-  projects Team[]
+  id     Int    @id @default(autoincrement())
+  name   String
+  office String // Exemplo: front, back, fullstack, QA, Design
+  temas  Team[]
+
+  @@map("users")
 }
 
 // Modelo para representar um projeto
@@ -28,8 +30,10 @@ model Project {
   endDate     DateTime?
   name        String
   description String
-  users       Team[]
+  temas       Team[]
   // sprints      Sprint[]
+
+  @@map("projects")
 }
 
 // // Relacionamento entre Pessoa e Projeto
@@ -41,6 +45,7 @@ model Team {
   role      String // PO, SM, DEV, QA
 
   @@id([userId, projectId])
+  @@map("teams")
 }
 
 // // Modelo para representar uma sprint do projeto

@@ -20,4 +20,4 @@ export const ProjectSchema = z.object({
     users: z.array(TeamSchema),
 });
 
-export type Project = z.infer<typeof ProjectSchema>;
+export type ProjectProps = z.infer<typeof ProjectSchema>;
