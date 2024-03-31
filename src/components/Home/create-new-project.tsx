@@ -7,11 +7,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { CalendarIcon, Loader2 } from "lucide-react";
+import { CalendarIcon, Loader2, PlusIcon } from "lucide-react";
 import { format, isFuture, isToday } from "date-fns";
 import { pt } from "date-fns/locale";
 import { Calendar } from "../ui/calendar";
 import { LabelWithError } from "../ui/label-with-error";
+import { SelectUser } from "./select-user";
+
+const user = z.object({
+  id: z.string(),
+  name: z.string(),
+});
 
 const newProjectSchema = z.object({
   name: z.string().min(1, "O nome do projeto é obrigatório"),
@@ -29,6 +35,9 @@ const newProjectSchema = z.object({
       }
     ),
   endDate: z.string().optional(),
+  po: user,
+  sm: user,
+  devs: z.array(user),
 });
 
 type NewProjectSchema = z.infer<typeof newProjectSchema>;
@@ -47,15 +56,17 @@ export function CreateNewProject() {
   const endDate = watch("endDate");
 
   const onSubmit = async (data: NewProjectSchema) => {
-    try {
-      await fetch("/api/projects", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-    } catch (error) {
-      console.error(error);
-    }
+    console.log(data);
+
+    // try {
+    //   await fetch("/api/projects", {
+    //     method: "POST",
+    //     headers: { "Content-Type": "application/json" },
+    //     body: JSON.stringify(data),
+    //   });
+    // } catch (error) {
+    //   console.error(error);
+    // }
   };
 
   return (
@@ -140,6 +151,23 @@ export function CreateNewProject() {
               </PopoverContent>
             </Popover>
           </div>
+        </div>
+
+        <div className="flex gap-4">
+          <SelectUser
+            user={watch("po")}
+            onChange={(user) => {
+              setValue("po", user);
+            }}
+            title="Product Owner"
+          />
+          <SelectUser
+            user={watch("sm")}
+            onChange={(user) => {
+              setValue("sm", user);
+            }}
+            title="Scrum Master"
+          />
         </div>
 
         <Button disabled={isLoading}>

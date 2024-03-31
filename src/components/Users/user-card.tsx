@@ -1,7 +1,12 @@
 import { UserProps } from "@/src/types/user.types";
 import Image from "next/image";
 
-export function UserCard({ user }: { user: UserProps }) {
+//Extends div props
+interface UserCardProps extends React.HTMLAttributes<HTMLDivElement> {
+  user: UserProps;
+}
+
+export function UserCard({ user, ...props }: UserCardProps) {
   const UserOffice = (office: string) => {
     const obj = {
       front: {
@@ -31,7 +36,10 @@ export function UserCard({ user }: { user: UserProps }) {
   };
 
   return (
-    <div className="border rounded-2xl px-2 py-3 flex gap-2 items-center cursor-pointer hover:border-primary transition-colors">
+    <div
+      className="border rounded-2xl px-2 py-3 flex gap-2 items-center cursor-pointer hover:border-primary transition-colors"
+      {...props}
+    >
       <div className="rounded-full overflow-hidden border h-10 w-10">
         <Image
           src="https://placebear.com/200/200"

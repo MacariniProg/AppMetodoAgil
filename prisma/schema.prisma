@@ -15,10 +15,10 @@ datasource db {
 
 // Modelo para representar uma pessoa do time
 model User {
-  id     Int    @id @default(autoincrement())
-  name   String
-  office String // Exemplo: front, back, fullstack, QA, Design
-  temas  Team[]
+  id       Int    @id @default(autoincrement())
+  name     String
+  office   String // Exemplo: front, back, fullstack, QA, Design
+  projects Team[]
 
   @@map("users")
 }
@@ -30,7 +30,7 @@ model Project {
   endDate     DateTime?
   name        String
   description String
-  temas       Team[]
+  users       Team[]
   // sprints      Sprint[]
 
   @@map("projects")
