@@ -1,36 +1,30 @@
 "use client";
 
 import { PlusIcon } from "lucide-react";
-import { Label } from "../ui/label";
 import {
   Dialog,
   DialogTrigger,
   DialogContent,
   DialogTitle,
   DialogHeader,
-  DialogClose,
 } from "../ui/dialog";
 import { useEffect, useState } from "react";
 import { UserCard } from "../Users/user-card";
-import { Button } from "../ui/button";
-import Image from "next/image";
-
-type userProps = {
-  id: number;
-  name: string;
-  office: string;
-};
+import { FieldError } from "react-hook-form";
+import { LabelWithError } from "../ui/label-with-error";
+import { UserProps } from "@/src/types/user.types";
 
 export function SelectUser({
-  user,
   onChange,
   title,
+  error,
 }: {
-  user?: userProps;
-  onChange: (user: userProps) => void;
+  onChange: (id: number) => void;
   title: string;
+  error: FieldError | undefined;
 }) {
-  const [users, setUsers] = useState<userProps[]>([]);
+  const [user, setUser] = useState<UserProps | null>(null);
+  const [users, setUsers] = useState<UserProps[]>([]);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -41,37 +35,26 @@ export function SelectUser({
     const res = await fetch("http://localhost:3000/api/user", {
       method: "GET",
     });
-    const data: { data: userProps[] } = await res.json();
+    const data: { data: UserProps[] } = await res.json();
     return data;
   };
 
   return (
     <div className="flex-1 flex flex-col gap-2">
-      <Label>{title}</Label>
+      <LabelWithError error={error} htmlFor="user" title={title} />
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <div className="flex w-full bg-red-400">
-          <DialogTrigger>
-            <div className="h-16 w-16 rounded-full border flex items-center justify-center text-stone-600 hover:border-primary cursor-pointer transition-all overflow-hidden">
-              {user?.id ? (
-                <Image
-                  src="https://placebear.com/200/200"
-                  alt="User"
-                  width={90}
-                  height={90}
-                />
-              ) : (
+        <DialogTrigger>
+          <div className="">
+            {user?.id ? (
+              <UserCard user={user} />
+            ) : (
+              <div className="h-16 w-16 rounded-full border flex items-center justify-center text-stone-600 hover:border-primary cursor-pointer transition-all overflow-hidden">
                 <PlusIcon />
-              )}
-            </div>
-          </DialogTrigger>
-
-          {user?.id && (
-            <div>
-              <h3 className="font-semibold">{user.name}</h3>
-            </div>
-          )}
-        </div>
+              </div>
+            )}
+          </div>
+        </DialogTrigger>
 
         <DialogContent className="!w-[600px]">
           <DialogHeader>
@@ -88,7 +71,8 @@ export function SelectUser({
                 key={user.id}
                 user={user}
                 onClick={() => {
-                  onChange(user);
+                  setUser(user);
+                  onChange(user.id);
                   setOpen(false);
                 }}
               />

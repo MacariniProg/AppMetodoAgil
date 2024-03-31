@@ -4,9 +4,16 @@ import Image from "next/image";
 //Extends div props
 interface UserCardProps extends React.HTMLAttributes<HTMLDivElement> {
   user: UserProps;
+  selected?: boolean;
+  notSelectable?: boolean;
 }
 
-export function UserCard({ user, ...props }: UserCardProps) {
+export function UserCard({
+  user,
+  selected,
+  notSelectable,
+  ...props
+}: UserCardProps) {
   const UserOffice = (office: string) => {
     const obj = {
       front: {
@@ -37,7 +44,9 @@ export function UserCard({ user, ...props }: UserCardProps) {
 
   return (
     <div
-      className="border rounded-2xl px-2 py-3 flex gap-2 items-center cursor-pointer hover:border-primary transition-colors"
+      className={`border rounded-2xl px-2 py-3 flex gap-2 items-center cursor-pointer ${
+        !notSelectable && "hover:border-primary"
+      } transition-colors ${selected ? "border-primary" : ""}`}
       {...props}
     >
       <div className="rounded-full overflow-hidden border h-10 w-10">
@@ -50,7 +59,7 @@ export function UserCard({ user, ...props }: UserCardProps) {
       </div>
 
       <div className="overflow-hidden flex-1">
-        <h3 className="font-semibold">{user.name}</h3>
+        <h3 className="font-semibold text-left">{user.name}</h3>
         <div className="text-xs flex justify-between items-start w-full">
           <p className="opacity-90">0 Projetos</p>
 

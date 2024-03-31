@@ -2,7 +2,7 @@
 
 import { SheetContent, SheetHeader, SheetTitle } from "../ui/sheet";
 import { z } from "zod";
-import { useForm } from "react-hook-form";
+import { FieldError, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
@@ -13,11 +13,7 @@ import { pt } from "date-fns/locale";
 import { Calendar } from "../ui/calendar";
 import { LabelWithError } from "../ui/label-with-error";
 import { SelectUser } from "./select-user";
-
-const user = z.object({
-  id: z.string(),
-  name: z.string(),
-});
+import { SelectMultipleUsers } from "./select-multiple-users";
 
 const newProjectSchema = z.object({
   name: z.string().min(1, "O nome do projeto é obrigatório"),
@@ -35,9 +31,15 @@ const newProjectSchema = z.object({
       }
     ),
   endDate: z.string().optional(),
-  po: user,
-  sm: user,
-  devs: z.array(user),
+  po: z.number({
+    required_error: "Selecione o PO",
+  }),
+  sm: z.number({
+    required_error: "Selecione o SM",
+  }),
+  devs: z.array(z.number(), {
+    required_error: "Adicione pelo menos um dev",
+  }),
 });
 
 type NewProjectSchema = z.infer<typeof newProjectSchema>;
@@ -74,7 +76,10 @@ export function CreateNewProject() {
       <SheetHeader>
         <SheetTitle>Criar novo projeto</SheetTitle>
       </SheetHeader>
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col gap-4 overflow-hidden px-2 flex-1"
+      >
         <div className="space-y-2">
           <LabelWithError
             htmlFor="name"
@@ -155,20 +160,27 @@ export function CreateNewProject() {
 
         <div className="flex gap-4">
           <SelectUser
-            user={watch("po")}
-            onChange={(user) => {
-              setValue("po", user);
+            onChange={(id) => {
+              setValue("po", id);
             }}
             title="Product Owner"
+            error={errors.po}
           />
           <SelectUser
-            user={watch("sm")}
-            onChange={(user) => {
-              setValue("sm", user);
+            onChange={(id) => {
+              setValue("sm", id);
             }}
             title="Scrum Master"
+            error={errors.sm}
           />
         </div>
+
+        <SelectMultipleUsers
+          onChange={(ids) => {
+            setValue("devs", ids);
+          }}
+          error={errors.devs}
+        />
 
         <Button disabled={isLoading}>
           {isLoading ? (

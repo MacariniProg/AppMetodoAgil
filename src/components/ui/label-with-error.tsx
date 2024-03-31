@@ -4,7 +4,7 @@ import { Label } from "./label";
 interface LabelWithErrorProps {
   htmlFor: string;
   title: string;
-  error: FieldError | undefined;
+  error: FieldError | undefined | any;
   optional?: boolean;
 }
 
@@ -15,7 +15,7 @@ export function LabelWithError({
   optional,
 }: LabelWithErrorProps) {
   return (
-    <div className="flex justify-between">
+    <div className="flex justify-between w-full">
       <Label htmlFor={htmlFor}>
         {title}{" "}
         {optional && (
