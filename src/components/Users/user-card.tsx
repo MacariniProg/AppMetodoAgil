@@ -61,7 +61,7 @@ export function UserCard({
       <div className="overflow-hidden flex-1">
         <h3 className="font-semibold text-left">{user.name}</h3>
         <div className="text-xs flex justify-between items-start w-full">
-          <p className="opacity-90">0 Projetos</p>
+          <p className="opacity-90">{user.projects?.length} Projetos</p>
 
           <div
             className={`${

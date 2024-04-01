@@ -47,7 +47,7 @@ export function SelectMultipleUsers({
         <LabelWithError htmlFor="devs" title="DEVS" error={error} />
 
         <Dialog>
-          <DialogTrigger>
+          <DialogTrigger asChild>
             <Button variant="outline" size="sm" type="button">
               <PlusIcon className="h-4 w-4" />
               Adicionar dev
@@ -94,7 +94,7 @@ export function SelectMultipleUsers({
         }}
       >
         {selecteds.map((user) => (
-          <div className="relative">
+          <div className="relative" key={user.id}>
             <div
               className="absolute right-1 top-1  rounded-full h-5 w-5 text-xs flex items-center justify-center cursor-pointer hover:border"
               onClick={() => {
@@ -105,7 +105,7 @@ export function SelectMultipleUsers({
             >
               x
             </div>
-            <UserCard key={user.id} user={user} notSelectable />
+            <UserCard user={user} notSelectable />
           </div>
         ))}
       </div>

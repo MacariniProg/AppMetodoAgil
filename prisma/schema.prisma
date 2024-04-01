@@ -17,7 +17,7 @@ datasource db {
 model User {
   id       Int    @id @default(autoincrement())
   name     String
-  office   String // Exemplo: front, back, fullstack, QA, Design
+  office   String // front, back, fullstack, QA, Design
   projects Team[]
 
   @@map("users")
@@ -31,6 +31,7 @@ model Project {
   name        String
   description String
   users       Team[]
+  status      String    @default("completed") // completed, inProgress, canceled  
   // sprints      Sprint[]
 
   @@map("projects")

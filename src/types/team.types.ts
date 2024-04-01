@@ -1,9 +1,19 @@
 import { z } from "zod";
 
 export const TeamSchema = z.object({
-    user: z.string(),
+    user: z.object({
+        id: z.number(),
+        name: z.string(),
+        office: z.string(),
+    }),
     userId: z.number(),
-    project: z.string(),
+    project: z.object({
+        id: z.number(),
+        initialDate: z.string(),
+        endDate: z.string().nullable(),
+        name: z.string(),
+        description: z.string(),
+    }),
     projectId: z.number(),
     role: z.string(),
 });

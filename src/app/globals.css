@@ -61,3 +61,11 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities{
+  .text-dots {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
