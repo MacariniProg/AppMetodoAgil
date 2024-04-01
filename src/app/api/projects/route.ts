@@ -1,8 +1,14 @@
 import { prisma } from '@/src/lib/prisma'
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 
-export const GET = async () => {
+export const GET = async (req:NextRequest) => {
+  // const status = req.query.status as string
+  const status  = req.nextUrl.searchParams.get('status');
+  const whereClause = status && status !== 'all' ? { status } : {};
+  
+  
     const data = await prisma.project.findMany({
+      where : whereClause,
       include: {
         users: {
           include: {

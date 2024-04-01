@@ -37,11 +37,11 @@ export function SearchArea() {
 const arr = [
   {
     name: "Em andamento",
-    value: "in_progress",
+    value: "inProgress",
   },
   {
     name: "Concluído",
-    value: "finished",
+    value: "completed",
   },
   {
     name: "Cancelado",

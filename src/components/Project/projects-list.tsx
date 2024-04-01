@@ -1,12 +1,23 @@
+"use client";
+
 import { ProjectProps } from "@/src/types/project.types";
 import { Progress } from "../ui/progress";
 import { AnimatedTooltip } from "../ui/animated-tooltip";
+import { useEffect, useState } from "react";
+import { useAtomValue } from "jotai";
+import { SearchAtom } from "@/src/app/(app)/page";
 
-export async function ProjectList() {
-  const res = await fetch("http://localhost:3000/api/projects", {
-    method: "GET",
-  });
-  const data: { data: ProjectProps[] } = await res.json();
+export function ProjectList() {
+  const [list, setList] = useState<ProjectProps[]>([]);
+  const search = useAtomValue(SearchAtom);
+
+  useEffect(() => {
+    fetch(`http://localhost:3000/api/projects?status=${search.status}`, {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((data) => setList(data.data.reverse()));
+  }, [search.status]);
 
   return (
     <div>
@@ -19,7 +30,7 @@ export async function ProjectList() {
           gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
         }}
       >
-        {data.data.reverse().map((project) => (
+        {list.map((project) => (
           <div className="border rounded-2xl px-2 py-3 cursor-pointer hover:border-primary transition-colors">
             <h2 className="font-semibold text-lg">{project.name}</h2>
             <p className="text-xs overflow-hidden text-dots">

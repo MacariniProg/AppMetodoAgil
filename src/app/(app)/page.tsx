@@ -1,11 +1,11 @@
-import { atom } from "jotai";
+import { atom, useAtomValue, useSetAtom } from "jotai";
 import { Header } from "../../components/Project/header";
 import { SearchArea } from "../../components/Project/search-area";
 import { ProjectList } from "@/src/components/Project/projects-list";
 
 export const SearchAtom = atom({
   search: "",
-  status: "in_progress",
+  status: "inProgress",
 });
 
 export default function Home() {

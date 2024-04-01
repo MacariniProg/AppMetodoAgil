@@ -31,7 +31,7 @@ model Project {
   name        String
   description String
   users       Team[]
-  status      String    @default("completed") // completed, inProgress, canceled  
+  status      String    @default("inProgress") // completed, inProgress, canceled  
   // sprints      Sprint[]
 
   @@map("projects")
