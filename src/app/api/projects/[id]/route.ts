@@ -1,12 +1,20 @@
-import db from '@/utils/db'
-import { NextResponse } from 'next/server'
+import { prisma } from '@/src/lib/prisma'
+import {  NextRequest, NextResponse } from 'next/server'
 
-export const GET = async (request: Request, { params }) => {
-  const data = await db.todo.findUnique({ where: { id: params.id } })
-  return NextResponse.json({ data })
+export const GET = async (req : NextRequest, { params }: { params: { id: string }}) => {
+  const id = params.id;
+  const project = await prisma.project.findUnique({
+    where: {
+      id: Number(id),
+    },
+    include: {
+      users: {
+        include: {
+          user: true,
+        },
+      },
+    },
+  })
+  return NextResponse.json({ project })
 }
 
-export const DELETE = async (request: Request, { params }) => {
-  const todo = await db.todo.delete({ where: { id: params.id } })
-  return NextResponse.json({ data: todo })
-}
