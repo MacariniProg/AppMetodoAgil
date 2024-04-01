@@ -58,17 +58,13 @@ export function CreateNewProject() {
   const endDate = watch("endDate");
 
   const onSubmit = async (data: NewProjectSchema) => {
-    console.log(data);
-
-    // try {
-    //   await fetch("/api/projects", {
-    //     method: "POST",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify(data),
-    //   });
-    // } catch (error) {
-    //   console.error(error);
-    // }
+    try {
+      await fetch("/api/projects", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+    } catch (error) {}
   };
 
   return (
