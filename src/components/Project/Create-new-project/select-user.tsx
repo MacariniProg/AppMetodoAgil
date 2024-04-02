@@ -7,11 +7,11 @@ import {
   DialogContent,
   DialogTitle,
   DialogHeader,
-} from "../ui/dialog";
+} from "../../ui/dialog";
 import { useEffect, useState } from "react";
-import { UserCard } from "../Users/user-card";
+import { UserCard } from "../../Users/user-card";
 import { FieldError } from "react-hook-form";
-import { LabelWithError } from "../ui/label-with-error";
+import { LabelWithError } from "../../ui/label-with-error";
 import { UserProps } from "@/src/types/user.types";
 
 export function SelectUser({

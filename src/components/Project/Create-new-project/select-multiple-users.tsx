@@ -1,8 +1,8 @@
 "use client";
 
 import { FieldError } from "react-hook-form";
-import { LabelWithError } from "../ui/label-with-error";
-import { Button } from "../ui/button";
+import { LabelWithError } from "../../ui/label-with-error";
+import { Button } from "../../ui/button";
 import { PlusIcon } from "lucide-react";
 import { UserProps } from "@/src/types/user.types";
 import { useEffect, useState } from "react";
@@ -12,8 +12,8 @@ import {
   DialogContent,
   DialogTitle,
   DialogHeader,
-} from "../ui/dialog";
-import { UserCard } from "../Users/user-card";
+} from "../../ui/dialog";
+import { UserCard } from "../../Users/user-card";
 
 export function SelectMultipleUsers({
   onChange,

@@ -4,7 +4,7 @@ import { ProjectProps } from "@/src/types/project.types";
 import { useEffect, useState } from "react";
 import { useAtomValue } from "jotai";
 import { SearchAtom } from "@/src/app/(app)/page";
-import { ProjectCard } from "./project-card";
+import { ProjectCard } from "../project-card";
 import { useRouter } from "next/navigation";
 
 export function ProjectList() {

@@ -1,7 +1,7 @@
 import { PlusCircleIcon } from "lucide-react";
-import { Button } from "../ui/button";
-import { SheetTrigger, Sheet } from "../ui/sheet";
-import { CreateNewProject } from "./create-new-project";
+import { Button } from "../../ui/button";
+import { SheetTrigger, Sheet } from "../../ui/sheet";
+import { CreateNewProject } from "../Create-new-project/create-new-project";
 
 export function Header() {
   return (

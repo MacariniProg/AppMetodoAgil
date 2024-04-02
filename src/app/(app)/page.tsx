@@ -1,7 +1,7 @@
 import { atom, useAtomValue, useSetAtom } from "jotai";
-import { Header } from "../../components/Project/header";
-import { SearchArea } from "../../components/Project/search-area";
-import { ProjectList } from "@/src/components/Project/projects-list";
+import { Header } from "../../components/Project/Project-list/header";
+import { SearchArea } from "../../components/Project/Project-list/search-area";
+import { ProjectList } from "@/src/components/Project/Project-list/projects-list";
 
 export const SearchAtom = atom({
   search: "",
