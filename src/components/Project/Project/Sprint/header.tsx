@@ -21,9 +21,9 @@ export function SprintHeader() {
           {format(new Date(), "dd MMM, yyyy", { locale: pt })} -{" "}
           {format(new Date(), "dd MMM, yyyy", { locale: pt })}
         </Button>
-        <Menubar>
+        <Menubar className="h-9">
           <MenubarMenu>
-            <MenubarTrigger className="!px-1">
+            <MenubarTrigger className=" cursor-pointer">
               <GripVerticalIcon size={16} />
             </MenubarTrigger>
             <MenubarContent>

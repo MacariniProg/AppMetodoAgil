@@ -39,7 +39,7 @@ export default function Project() {
 
         <Menubar>
           <MenubarMenu>
-            <MenubarTrigger>Ações</MenubarTrigger>
+            <MenubarTrigger className="cursor-pointer">Ações</MenubarTrigger>
             <MenubarContent>
               <MenubarItem>Nova sprint</MenubarItem>
               <MenubarItem>Nova história</MenubarItem>
