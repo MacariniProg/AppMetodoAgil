@@ -14,6 +14,7 @@ import {
   DialogHeader,
 } from "../../ui/dialog";
 import { UserCard } from "../../Users/user-card";
+import { ScrollArea } from "../../ui/scroll-area";
 
 export function SelectMultipleUsers({
   onChange,
@@ -87,28 +88,30 @@ export function SelectMultipleUsers({
         </Dialog>
       </div>
 
-      <div
-        className="flex-1 grid gap-4 items-baseline content-start max-h-[40vh] overflow-y-auto pb-6 mt-4"
-        style={{
-          gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
-        }}
-      >
-        {selecteds.map((user) => (
-          <div className="relative" key={user.id}>
-            <div
-              className="absolute right-1 top-1  rounded-full h-5 w-5 text-xs flex items-center justify-center cursor-pointer hover:border"
-              onClick={() => {
-                setSelecteds(
-                  selecteds.filter((selected) => selected.id !== user.id)
-                );
-              }}
-            >
-              x
+      <ScrollArea>
+        <div
+          className="flex-1 grid gap-4 items-baseline content-start max-h-[40vh] overflow-y-auto pb-6 mt-4"
+          style={{
+            gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
+          }}
+        >
+          {selecteds.map((user) => (
+            <div className="relative" key={user.id}>
+              <div
+                className="absolute right-1 top-1  rounded-full h-5 w-5 text-xs flex items-center justify-center cursor-pointer hover:border"
+                onClick={() => {
+                  setSelecteds(
+                    selecteds.filter((selected) => selected.id !== user.id)
+                  );
+                }}
+              >
+                x
+              </div>
+              <UserCard user={user} notSelectable />
             </div>
-            <UserCard user={user} notSelectable />
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      </ScrollArea>
     </div>
   );
 }

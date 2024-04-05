@@ -2,9 +2,9 @@
 
 import { SearchIcon } from "lucide-react";
 import { Input } from "../../ui/input";
-import { Button } from "../../ui/button";
 import { useAtom } from "jotai";
 import { SearchAtom } from "@/src/app/(app)/page";
+import { Tabs, TabsList, TabsTrigger } from "@/src/components/ui/tabs";
 
 export function SearchArea() {
   const [search, setSearch] = useAtom(SearchAtom);
@@ -20,16 +20,19 @@ export function SearchArea() {
         />
       </div>
 
-      {arr.map((item) => (
-        <Button
-          key={item.value}
-          className={`text-sm`}
-          variant={item.value == search.status ? "default" : "secondary"}
-          onClick={() => setSearch({ ...search, status: item.value })}
-        >
-          {item.name}
-        </Button>
-      ))}
+      <Tabs defaultValue="inProgress">
+        <TabsList>
+          {arr.map((item) => (
+            <TabsTrigger
+              key={item.value}
+              value={item.value}
+              onClick={() => setSearch({ ...search, status: item.value })}
+            >
+              {item.name}
+            </TabsTrigger>
+          ))}
+        </TabsList>
+      </Tabs>
     </div>
   );
 }

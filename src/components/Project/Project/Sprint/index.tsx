@@ -4,7 +4,7 @@ import { SprintTasks } from "./tasks";
 
 export function Sprint() {
   return (
-    <div className="space-y-2">
+    <div className="flex-1 flex flex-col gap-1 overflow-hidden">
       <SprintHeader />
       <SprintProgress />
       <SprintTasks />

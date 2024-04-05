@@ -23,12 +23,12 @@ export default function Project() {
   if (error) return "An error has occurred: " + error.message;
 
   return (
-    <div className="flex-1 flex gap-4 flex-col">
+    <div className="flex-1 flex gap-4 flex-col overflow-hidden">
       <h2 className="text-3xl font-bold tracking-tight">
         Projeto {project.name}
       </h2>
-      <div className="flex-1 gap-2 flex">
-        <div className="flex-[2]  border-r pr-2 space-y-4">
+      <div className="flex-1 gap-2 flex overflow-hidden">
+        <div className="flex-[2] border-r pr-2  flex flex-col overflow-hidden">
           <Team users={project.users} />
           <Sprint />
         </div>
