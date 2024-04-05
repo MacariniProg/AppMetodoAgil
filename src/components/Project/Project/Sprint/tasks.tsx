@@ -40,7 +40,7 @@ export function SprintTasks() {
         </Tabs>
       </div>
 
-      <ScrollArea className="flex-1 pr-2">
+      <ScrollArea className="flex-1  basis-1">
         <Accordion type="single" collapsible className="w-full">
           {tasks.map((task, index) => (
             <AccordionItem value={index.toString()} key={index}>
