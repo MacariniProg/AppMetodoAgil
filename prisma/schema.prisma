@@ -15,10 +15,11 @@ datasource db {
 
 // Modelo para representar uma pessoa do time
 model User {
-  id       Int    @id @default(autoincrement())
+  id       Int        @id @default(autoincrement())
   name     String
   office   String // front, back, fullstack, QA, Design
   projects Team[]
+  tasks    UserTask[]
 
   @@map("users")
 }
@@ -32,7 +33,7 @@ model Project {
   description String
   users       Team[]
   status      String    @default("inProgress") // completed, inProgress, canceled  
-  // sprints      Sprint[]
+  Sprint      Sprint[]
 
   @@map("projects")
 }
@@ -50,27 +51,39 @@ model Team {
 }
 
 // // Modelo para representar uma sprint do projeto
-// model Sprint {
-//   id            Int       @id @default(autoincrement())
-//   projeto       Projeto   @relation(fields: [projetoId], references: [id])
-//   projetoId     Int
-//   dataInicio    DateTime
-//   dataFim       DateTime
-//   tarefas       Tarefa[]
-// }
+model Sprint {
+  id        Int      @id @default(autoincrement())
+  startDate DateTime
+  endDate   DateTime
+  project   Project  @relation(fields: [projectId], references: [id])
+  projectId Int
+  tasks     Task[]
+}
 
 // // Modelo para representar uma tarefa
-// model Tarefa {
-//   id              Int       @id @default(autoincrement())
-//   nome            String
-//   historia        Historia  @relation(fields: [historiaId], references: [id])
-//   historiaId      Int
-//   responsaveis    Pessoa[]  @relation("ResponsavelTarefa")
-//   status          String    // Todo, Doing, Done, QA
-// }
+model Task {
+  id          Int        @id @default(autoincrement())
+  name        String
+  histories   History[]
+  responsible UserTask[]
+  status      String // Todo, Doing, Done, QA
+  Sprint      Sprint?    @relation(fields: [sprintId], references: [id])
+  sprintId    Int?
+}
+
+model UserTask {
+  userId Int
+  taskId Int
+  user   User @relation(fields: [userId], references: [id])
+  task   Task @relation(fields: [taskId], references: [id])
+
+  @@id([userId, taskId])
+}
 
 // // Modelo para representar uma história do projeto
-// model Historia {
-//   id          Int       @id @default(autoincrement())
-//   descricao   String
-// }
+model History {
+  id          Int    @id @default(autoincrement())
+  description String
+  task        Task?  @relation(fields: [taskId], references: [id])
+  taskId      Int?
+}

@@ -1,4 +1,4 @@
-import { atom, useAtomValue, useSetAtom } from "jotai";
+import { atom } from "jotai";
 import { Header } from "../../components/Project/Project-list/header";
 import { SearchArea } from "../../components/Project/Project-list/search-area";
 import { ProjectList } from "@/src/components/Project/Project-list/projects-list";
